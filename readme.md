@@ -41,6 +41,10 @@ Tail the access logs (default: /data/logs/access.log).
 Follow the instructions in the Docker documentation to run the container at startup.
 [Documentation](https://docs.docker.com/articles/host_integration/)
 
+## Thanks
+
+Based on original configs from [ansible-lanparty](https://github.com/ti-mo/ansible-lanparty).
+
 ## License
 
 The MIT License (MIT)
