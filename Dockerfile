@@ -13,14 +13,12 @@ RUN	chmod 755 /scripts/*			;\
 	mkdir -m 755 -p /tmp/nginx/		;\
 	chown -R ${WEBUSER}:${WEBUSER} /data/	;\
 	mkdir -p /etc/nginx/sites-enabled	;\
-	ln -s /etc/nginx/sites-available/origin.conf /etc/nginx/sites-enabled/origin.conf
+	ln -s /etc/nginx/sites-available/generic.conf /etc/nginx/sites-enabled/generic.conf
 
 VOLUME ["/data/logs", "/data/cache", "/var/www"]
 
 EXPOSE 80
 
 WORKDIR /scripts
-
-ENV ORIGINCACHE_IP 0.0.0.0
 
 ENTRYPOINT ["/scripts/bootstrap.sh"]
