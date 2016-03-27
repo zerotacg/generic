@@ -1,4 +1,4 @@
-FROM sickp/alpine-nginx
+FROM nginx:alpine
 MAINTAINER SteamCache.Net Team <team@steamcache.net>
 
 ENV ORIGINCACHE_VERSION 1
