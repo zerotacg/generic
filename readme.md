@@ -1,10 +1,19 @@
-# Origin Cache Docker Container
+# Game Download Cache Docker Container
 
 ## Introduction
 
-This docker container provides a caching proxy server for Origin content. For any network with more than one PC gamer in connected this will drastically reduce internet bandwidth consumption. 
+This docker container provides a caching proxy server for game download content. For any network with more than one PC gamer in connected this will drastically reduce internet bandwidth consumption. 
 
 The primary use case is gaming events, such as LAN parties, which need to be able to cope with hundreds or thousands of computers receiving an unannounced patch - without spending a fortune on internet connectivity. Other uses include smaller networks, such as Internet Cafes and home networks, where the new games are regularly installed on multiple computers; or multiple independent operating systems on the same computer.
+
+This container is designed to support any game that uses HTTP and also supports HTTP range requests (used by Origin). This should make it suitable for:
+
+ - Origin (EA Games)
+ - Riot Games (League of Legends)
+ - Battle.net (Hearthstone, Starcraft 2, Overwatch)
+ - Frontier Launchpad (Elite Dangerous, Planet Coaster)
+
+You can use this container for Steam, however our [steamcache container](https://hub.docker.com/r/steamcache/steamcache/) is a better option as it uses a different caching method that's better for Steam.
 
 ## Usage
 
@@ -13,20 +22,34 @@ You will need to have a DNS server forwarding queries to the machine your docker
 Run the origin container with the using the following to allow TCP port 80 (HTTP) through the host machine:
 
 ```
-docker run --name origin -p 192.168.0.5:80:80 steamcache/origin:latest
+docker run --name origin -p 192.168.0.5:80:80 steamcache/generic:latest
 ```
 ## Quick Explanation
 
-For an Origin cache to function on your network you need two services.
+For an game cache to function on your network you need two services.
 
-* An Origin cache service [This container](https://github.com/steamcache/origin)
+* An game cache service [This container](https://github.com/steamcache/generic)
 * A special DNS service [steamcache-dns](https://github.com/steamcache/steamcache-dns)
 
-The Origin cache service transparently proxies your requests for content to Origin, or serves the content to you if it already has it.
+The cache service transparently proxies your requests for content to the content procider, or serves the content to you if it already has it.
 
-The special DNS service handles DNS queries normally (recursively), except when they're about Origin and in that case it responds that the depot cache service should be used.
+The special DNS service handles DNS queries normally (recursively), except when they're about the games you're interested in and in that case it responds that the depot cache service should be used.
 
-Note: steamcache-dns does not currently support Twitch. It will be updated shortly.
+Note: steamcache-dns does not currently support these providers. It will be updated soon.
+
+## DNS Entries
+
+You will need to add DNS Zones for the following hostnames, pointing to the IP of the cache container:
+
+Origin:
+ - origin-a.akamaihd.net
+
+Riot Games:
+ - l3cdn.riotgames.com
+ - worldwide.l3cdn.riotgames.com
+
+Frontier Launchpad:
+ - cdn.zaonce.net
 
 ## Suggested Hardware
 
