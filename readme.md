@@ -12,6 +12,7 @@ This container is designed to support any game that uses HTTP and also supports 
  - Riot Games (League of Legends)
  - Battle.net (Hearthstone, Starcraft 2, Overwatch)
  - Frontier Launchpad (Elite Dangerous, Planet Coaster)
+ - Windows Updates
 
 You can use this container for Steam, however our [steamcache container](https://hub.docker.com/r/steamcache/steamcache/) is a better option as it uses a different caching method that's better for Steam.
 
@@ -22,7 +23,7 @@ You will need to have a DNS server forwarding queries to the machine your docker
 Run the origin container with the using the following to allow TCP port 80 (HTTP) through the host machine:
 
 ```
-docker run --name origin -p 192.168.0.5:80:80 steamcache/generic:latest
+docker run --name lancache -p 192.168.0.5:80:80 steamcache/generic:latest
 ```
 ## Quick Explanation
 
@@ -50,6 +51,16 @@ Riot Games:
 
 Frontier Launchpad:
  - cdn.zaonce.net
+
+Battle.net
+ - dist.blizzard.com
+ - llnw.blizzard.com
+ - blzddist1-a.akamaihd.net
+ - blzddist2-a.akamaihd.net
+ - dist.blizzard.com.edgesuite.net
+
+Windows Update
+ - download.windowsupdate.com
 
 ## Suggested Hardware
 
