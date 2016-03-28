@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx
 MAINTAINER SteamCache.Net Team <team@steamcache.net>
 
 ENV ORIGINCACHE_VERSION 1
