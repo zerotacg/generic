@@ -1,7 +1,7 @@
-FROM nginx
+FROM nginx:alpine
 MAINTAINER SteamCache.Net Team <team@steamcache.net>
 
-ENV ORIGINCACHE_VERSION 1
+ENV GENERICCACHE_VERSION 1
 ENV WEBUSER nginx
 
 COPY overlay/ /
