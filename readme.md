@@ -12,6 +12,7 @@ This container is designed to support any game that uses HTTP and also supports 
  - Riot Games (League of Legends)
  - Battle.net (Hearthstone, Starcraft 2, Overwatch)
  - Frontier Launchpad (Elite Dangerous, Planet Coaster)
+ - Uplay (Ubisoft)
  - Windows Updates
 
 You can use this container for Steam, however our [steamcache container](https://hub.docker.com/r/steamcache/steamcache/) is a better option as it uses a different caching method that's better for Steam.
@@ -61,6 +62,9 @@ Battle.net
 
 Windows Update
  - download.windowsupdate.com
+
+Uplay
+ - cdn.ubi.com
 
 ## Suggested Hardware
 
