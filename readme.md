@@ -21,7 +21,7 @@ You can use this container for Steam, however our [steamcache container](https:/
 
 You will need to have a DNS server forwarding queries to the machine your docker container is running on. You can use the [steamcache-dns](https://hub.docker.com/r/steamcache/steamcache-dns/) docker image to do this or you can use a DNS service already on your network see the [steamcache-dns github page](https://github.com/steamcache/steamcache-dns) for more information.
 
-Run the origin container with the using the following to allow TCP port 80 (HTTP) through the host machine:
+Run the origin container using the following to allow TCP port 80 (HTTP) through the host machine:
 
 ```
 docker run --name lancache -p 192.168.0.5:80:80 steamcache/generic:latest
