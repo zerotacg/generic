@@ -16,7 +16,7 @@ This container is designed to support any game that uses HTTP and also supports 
  - Uplay (Ubisoft)
  - Windows Updates
 
-This is the best container to use for all game caching, including Steam.
+This is the best container to use for all game caching and should be used for Steam in preference to the steamcache/steamcache container.
 
 ## Usage
 
@@ -56,6 +56,20 @@ docker run \
 
 Repeat this for as many services as you want to cache. It is best practice to keep the caches separate for each service to prevent the possibility of overwriting the same data.
 
+## Origin and SSL
+
+Some publishers, including Origin, use the same hostnames we're replacing for HTTPS content as well as HTTP content. We can't cache HTTPS traffic, so if you're intercepting DNS, you will need to run an SNI Proxy container on port 443 to forward on any HTTPS traffic.
+
+```
+docker run \
+  --restart unless-stopped \
+  --name sniproxy \
+  -p 443:443 \
+  steamcache/sniproxy:latest
+```
+
+Please read the [steamcache/sniproxy](https://github.com/steamcache/sniproxy) project for more information.
+
 ## DNS Entries
 
 You can find a list of domains you will want to use for each service over on [uklans/cache-domains](https://github.com/uklans/cache-domains). The aim is for this to be a definitive list of all domains you might want to cache.
@@ -78,7 +92,9 @@ If you have mounted the volume externally then you can tail it on the host inste
 
 ## Thanks
 
-Based on original configs from [ansible-lanparty](https://github.com/ti-mo/ansible-lanparty).
+ - Based on original configs from [ansible-lanparty](https://github.com/ti-mo/ansible-lanparty).
+ - Everyone on [/r/lanparty](https://reddit.com/r/lanparty) who has provided feedback and helped people with this.
+ - UK LAN Techs for all the support.
 
 ## License
 
@@ -103,4 +119,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
