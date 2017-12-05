@@ -8,6 +8,7 @@ The primary use case is gaming events, such as LAN parties, which need to be abl
 
 This container is designed to support any game that uses HTTP and also supports HTTP range requests (used by Origin). This should make it suitable for:
 
+ - Steam (Valve)
  - Origin (EA Games)
  - Riot Games (League of Legends)
  - Battle.net (Hearthstone, Starcraft 2, Overwatch)
@@ -15,56 +16,49 @@ This container is designed to support any game that uses HTTP and also supports 
  - Uplay (Ubisoft)
  - Windows Updates
 
-You can use this container for Steam, however our [steamcache container](https://hub.docker.com/r/steamcache/steamcache/) is a better option as it uses a different caching method that's better for Steam.
+This is the best container to use for all game caching, including Steam.
 
 ## Usage
 
-You will need to have a DNS server forwarding queries to the machine your docker container is running on. You can use the [steamcache-dns](https://hub.docker.com/r/steamcache/steamcache-dns/) docker image to do this or you can use a DNS service already on your network see the [steamcache-dns github page](https://github.com/steamcache/steamcache-dns) for more information.
+You need to be able to redirect HTTP traffic to this container. The easiest way to do this is to replace the DNS entries for the various game services with your cache server.
 
-Run the origin container using the following to allow TCP port 80 (HTTP) through the host machine:
+You can use the [steamcache-dns](https://hub.docker.com/r/steamcache/steamcache-dns/) docker image to do this or you can use a DNS service already on your network see the [steamcache-dns github page](https://github.com/steamcache/steamcache-dns) for more information.
+
+For the cache files to persist you will need to mount a directory on the host machine into the container. You can do this using `-v <path on host>:/data/cache`. You can do the same with a logs directory as well if you want logs to be persistent as well.
+
+Run the container using the following to allow TCP port 80 (HTTP) and to mount `/cache/steam/data` directory into the container.
 
 ```
-docker run --name lancache -p 192.168.0.5:80:80 steamcache/generic:latest
+docker run \
+  --restart unless-stopped \
+  --name cache-steam \
+  -v /cache/steam/data:/data/cache \
+  -v /cache/steam/logs:/data/logs \
+  -p 192.168.1.10:80:80 \
+  steamcache/generic:latest
 ```
-## Quick Explanation
 
-For an game cache to function on your network you need two services.
+## Caching Multiple Services
 
-* An game cache service [This container](https://github.com/steamcache/generic)
-* A special DNS service [steamcache-dns](https://github.com/steamcache/steamcache-dns)
+If you want to cache multiple game services then you should run multiple instances of the cache and use different IP addresses on the host machine. The first thing is to add an extra IP to your network interface.
 
-The cache service transparently proxies your requests for content to the content procider, or serves the content to you if it already has it.
+You should then create a second data directory on the host and then run the container for the service you want to cache:
 
-The special DNS service handles DNS queries normally (recursively), except when they're about the games you're interested in and in that case it responds that the depot cache service should be used.
+```
+docker run \
+  --restart unless-stopped \
+  --name cache-blizzard \
+  -v /cache/blizzard/data:/data/cache \
+  -v /cache/blizzard/logs:/data/logs \
+  -p 192.168.1.11:80:80 \
+  steamcache/generic:latest
+```
 
-Note: steamcache-dns does not currently support these providers. It will be updated soon.
+Repeat this for as many services as you want to cache. It is best practice to keep the caches separate for each service to prevent the possibility of overwriting the same data.
 
 ## DNS Entries
 
-You will need to add DNS Zones for the following hostnames, pointing to the IP of the cache container:
-
-Origin:
- - origin-a.akamaihd.net
-
-Riot Games:
- - l3cdn.riotgames.com
- - worldwide.l3cdn.riotgames.com
-
-Frontier Launchpad:
- - cdn.zaonce.net
-
-Battle.net
- - dist.blizzard.com
- - llnw.blizzard.com
- - blzddist1-a.akamaihd.net
- - blzddist2-a.akamaihd.net
- - dist.blizzard.com.edgesuite.net
-
-Windows Update
- - download.windowsupdate.com
-
-Uplay
- - cdn.ubi.com
+You can find a list of domains you will want to use for each service over on [uklans/cache-domains](https://github.com/uklans/cache-domains). The aim is for this to be a definitive list of all domains you might want to cache.
 
 ## Suggested Hardware
 
@@ -72,12 +66,15 @@ Regular commodity hardware (a single 2TB WD Black on an HP Microserver) can achi
 
 ## Monitoring
 
-Tail the access logs (default: /data/logs/access.log).
+Access logs are written to /data/logs. If you don't particularly care about keeping them, you don't need to mount an external volume into the container.
 
-## Running on Startup
+You can tail them using:
 
-Follow the instructions in the Docker documentation to run the container at startup.
-[Documentation](https://docs.docker.com/articles/host_integration/)
+```
+docker exec -it cache-steam tail -f /data/logs/access.log
+```
+
+If you have mounted the volume externally then you can tail it on the host instead.
 
 ## Thanks
 
