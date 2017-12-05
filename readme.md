@@ -90,6 +90,17 @@ docker exec -it cache-steam tail -f /data/logs/access.log
 
 If you have mounted the volume externally then you can tail it on the host instead.
 
+## Advice to Publishers
+
+If you're a games publisher and you'd like LAN parties, gaming centers and other places to be able to easily cache your game updates, we reccomend the following:
+
+ - If your content downloads are on HTTPS, you can do what Riot have done - try and resolve a specific hostname. If it resolves to a RFC1918 private address, switch your downloads to use HTTP instead.
+ - Try to use hostnames specific for your HTTP download traffic.
+ - Tell us the hostnames that you're using for your game traffic. We're maintaining a list at [uklans/cache-domains](https://github.com/uklans/cache-domains) and we'll accept pull requests!
+ - Have your client verify the files and ensure the file they've downloaded matches the file they **should** have downloaded. This cache server acts as a man-in-the-middle so it would be good to ensure the files are correct.
+
+ If you need any further advice, please contact us and we'll be glad to help!
+
 ## Thanks
 
  - Based on original configs from [ansible-lanparty](https://github.com/ti-mo/ansible-lanparty).
