@@ -78,6 +78,26 @@ You can find a list of domains you will want to use for each service over on [uk
 
 Regular commodity hardware (a single 2TB WD Black on an HP Microserver) can achieve peak throughputs of 30MB/s+ using this setup (depending on the specific content being served).
 
+## Tweaking Cache sizes
+
+Two environment variables are available to manage both the memory and disk cache for a particular container, and are set to the following defaults.
+```
+CACHE_MEM_SIZE 500m
+CACHE_DISK_SIZE 500000m
+```
+
+In addition, there is an environment variable to control the max cache age
+
+```
+CACHE_MAX_AGE 3650d
+````
+
+You can override these at run time by adding the following to your docker run command.  They accept the standard nginx notation for sizes (k/m/g/t) and durations (m/h/d)
+
+```
+-e CACHE_MEM_SIZE=4000m -e CACHE_DISK_SIZE=1000g
+```
+
 ## Monitoring
 
 Access logs are written to /data/logs. If you don't particularly care about keeping them, you don't need to mount an external volume into the container.
