@@ -16,9 +16,6 @@ RUN	chmod 755 /scripts/*			;\
 	mkdir -m 755 -p /tmp/nginx/		;\
 	chown -R ${WEBUSER}:${WEBUSER} /data/	;\
 	mkdir -p /etc/nginx/sites-enabled	;\
-	sed -i "s/CACHE_MEM_SIZE/${CACHE_MEM_SIZE}/"  /etc/nginx/sites-available/generic.conf	;\
-	sed -i "s/CACHE_DISK_SIZE/${CACHE_DISK_SIZE}/" /etc/nginx/sites-available/generic.conf	;\
-	sed -i "s/CACHE_MAX_AGE/${CACHE_MAX_AGE}/"    /etc/nginx/sites-available/generic.conf	;\
 	ln -s /etc/nginx/sites-available/generic.conf /etc/nginx/sites-enabled/generic.conf
 
 VOLUME ["/data/logs", "/data/cache", "/var/www"]
