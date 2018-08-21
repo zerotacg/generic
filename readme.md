@@ -121,6 +121,10 @@ If you're a games publisher and you'd like LAN parties, gaming centers and other
 
  If you need any further advice, please contact us and we'll be glad to help!
 
+## Frequently Asked Questions
+
+If you have any questions, please check [our FAQs](faq.md). If this doesn't answer your question, please raise an issue in GitHub.
+
 ## Thanks
 
  - Based on original configs from [ansible-lanparty](https://github.com/ti-mo/ansible-lanparty).
