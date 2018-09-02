@@ -26,6 +26,8 @@ Served ~250 uniques, peaking at 1.8Gbps
 
 ## Low capacity
 
+12 CPU core, 8GB memory, 1 x500GB 5K HDD
+Served ~15 uniques, peaking at 100MB/s (from HDD way slower)
 
 
 
