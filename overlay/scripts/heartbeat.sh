@@ -1,7 +1,7 @@
-#!/bin/sh
-
+#!/bin/bash
+set -e
 if [[ "$1" == "" ]]; then
-	BEATTIME="3600"
+	BEATTIME=${BEAT_TIME}
 else
 	BEATTIME=$1
 	if [[ "$1" == 0 ]]; then 
