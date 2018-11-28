@@ -14,6 +14,7 @@ ENV LOGFILE_RETENTION 3560
 COPY overlay/ /
 
 RUN rm /etc/nginx/sites-enabled/*; \
+    rm /etc/nginx/conf.d/gzip.conf /etc/nginx/conf.d/openshift_logging.conf ;\
     chmod 754  /var/log/tallylog ; \
     adduser --system --home /var/www/ --no-create-home --shell /bin/false --group --disabled-login ${WEBUSER} ;\
     chmod 755 /scripts/*			;\
@@ -23,7 +24,7 @@ RUN rm /etc/nginx/sites-enabled/*; \
 	mkdir -m 755 -p /tmp/nginx/		;\
 	chown -R ${WEBUSER}:${WEBUSER} /data/	;\
 	mkdir -p /etc/nginx/sites-enabled	;\
-	ln -s /etc/nginx/sites-available/generic.conf /etc/nginx/sites-enabled/generic.conf
+	ln -s /etc/nginx/sites-available/00_generic.conf /etc/nginx/sites-enabled/00_generic.conf
 
 VOLUME ["/data/logs", "/data/cache", "/var/www"]
 
