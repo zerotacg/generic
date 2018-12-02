@@ -24,7 +24,7 @@ RUN rm /etc/nginx/sites-enabled/*; \
 	mkdir -m 755 -p /tmp/nginx/		;\
 	chown -R ${WEBUSER}:${WEBUSER} /data/	;\
 	mkdir -p /etc/nginx/sites-enabled	;\
-	ln -s /etc/nginx/sites-available/00_generic.conf /etc/nginx/sites-enabled/00_generic.conf
+	ln -s /etc/nginx/sites-available/10_generic.conf /etc/nginx/sites-enabled/10_generic.conf
 
 VOLUME ["/data/logs", "/data/cache", "/var/www"]
 
