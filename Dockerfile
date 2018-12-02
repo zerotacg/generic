@@ -1,5 +1,4 @@
-FROM vibroaxe/ubuntu-18-nginx:latest
-#FROM 1and1internet/ubuntu-18-nginx:latest
+FROM steamcache/ubuntu-18-nginx:latest
 MAINTAINER SteamCache.Net Team <team@steamcache.net>
 
 ENV GENERICCACHE_VERSION 2
