@@ -3,6 +3,14 @@ workflows:
   build_test_deploy:
     jobs:
       - test
+      - publish_tag:
+          context: docker-hub
+          requires:
+            - test
+          filters:
+             branches:
+               only: 
+                 - legacy
       - publish_latest:
           context: docker-hub
           requires:
@@ -58,7 +66,23 @@ jobs:
       - store_artifacts:
           path: reports
           destination: reports
-  publish_latest:
+  publish_tag:
+    docker:
+      - image: circleci/python:2-jessie
+    steps:
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: true # (3)
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "Deploy latest to docker hub"
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            #docker build -t steamcache/generic:latest .
+            docker load -i /tmp/workspace/steamcache-generic.tar
+            docker tag steamcache/generic:goss-test steamcache/generic:$CIRCLE_BRANCH
+            docker push steamcache/generic:$CIRCLE_BRANCH
+ publish_latest:
     docker:
       - image: circleci/python:2-jessie
     steps:
