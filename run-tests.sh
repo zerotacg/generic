@@ -8,7 +8,7 @@ if [ $? -ne 0 ]; then
 	exit $?
 fi
 
-docker build --tag steamcache/ubuntu:goss-test .
+docker build --tag steamcache/generic:goss-test .
 case $1 in
   circleci)
     shift;
@@ -18,7 +18,7 @@ case $1 in
 		shift
 	fi
     export GOSS_OPTS="$GOSS_OPTS --format junit"
-	dgoss run $@ steamcache/ubuntu:goss-test > reports/goss/report.xml
+	dgoss run $@ steamcache/generic:goss-test > reports/goss/report.xml
 	#store result for exit code
 	RESULT=$?
 	#delete the junk that goss currently outputs :(
@@ -31,10 +31,10 @@ case $1 in
 		KEEPIMAGE=true
 		shift
 	fi
-	dgoss run $@ steamcache/ubuntu:goss-test
+	dgoss run $@ steamcache/generic:goss-test
 	RESULT=$?
     ;;
 esac
-[[ "$KEEPIMAGE" == "true" ]] || docker rmi steamcache/ubuntu:goss-test
+[[ "$KEEPIMAGE" == "true" ]] || docker rmi steamcache/generic:goss-test
 
 exit $RESULT
