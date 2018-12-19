@@ -1,4 +1,6 @@
 process:
+  supervisord:
+    running: true
   nginx:
     running: true
 port:
