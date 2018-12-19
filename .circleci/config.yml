@@ -23,6 +23,24 @@ workflows:
           context: circle-api
           requires:
             - publish_latest
+  monthly:
+    triggers:
+      - schedule:
+          cron: "0 0 1 * *"
+          filters:
+            branches:
+              only:
+                - legacy
+    jobs:
+      - test
+      - publish_tag:
+          context: docker-hub
+          requires:
+            - test
+          filters:
+             branches:
+               only: 
+                 - legacy
 
 version: 2
 jobs:
@@ -82,7 +100,7 @@ jobs:
             docker load -i /tmp/workspace/steamcache-generic.tar
             docker tag steamcache/generic:goss-test steamcache/generic:$CIRCLE_BRANCH
             docker push steamcache/generic:$CIRCLE_BRANCH
- publish_latest:
+  publish_latest:
     docker:
       - image: circleci/python:2-jessie
     steps:
