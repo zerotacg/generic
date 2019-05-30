@@ -1,5 +1,5 @@
-FROM steamcache/ubuntu-nginx:latest
-MAINTAINER SteamCache.Net Team <team@steamcache.net>
+FROM lancachenet/ubuntu-nginx:latest
+MAINTAINER LanCache.Net Team <team@lancache.net>
 
 ENV GENERICCACHE_VERSION=2 \
     WEBUSER=www-data \
