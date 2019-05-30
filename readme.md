@@ -16,13 +16,13 @@ This container is designed to support any game that uses HTTP and also supports 
  - Uplay (Ubisoft)
  - Windows Updates
 
-This is the best container to use for all game caching and should be used for Steam in preference to the steamcache/steamcache container.
+This is the best container to use for all game caching and should be used for Steam in preference to the lancachenet/steamcache container.
 
 ## Usage
 
 You need to be able to redirect HTTP traffic to this container. The easiest way to do this is to replace the DNS entries for the various game services with your cache server.
 
-You can use the [steamcache-dns](https://hub.docker.com/r/lancachenet/steamcache-dns/) docker image to do this or you can use a DNS service already on your network see the [steamcache-dns github page](https://github.com/lancachenet/steamcache-dns) for more information.
+You can use the [lancache-dns](https://hub.docker.com/r/lancachenet/lancache-dns/) docker image to do this or you can use a DNS service already on your network see the [lancache-dns github page](https://github.com/lancachenet/lancache-dns) for more information.
 
 For the cache files to persist you will need to mount a directory on the host machine into the container. You can do this using `-v <path on host>:/data/cache`. You can do the same with a logs directory as well if you want logs to be persistent as well.
 
