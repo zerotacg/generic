@@ -10,9 +10,9 @@ If you are unsure which container to use - start with [monolithic](https://githu
 
 ## Documentation
 
-The documentation for the LanCache.net project can be found on [our website](https://www.lancache.net)
+The documentation for the LanCache.net project can be found on [our website](http://www.lancache.net)
 
-If you have any problems after reading the documentation please see [the support page](https://www.lancache.net/docs/support/) before opening a new issue on github.
+If you have any problems after reading the documentation please see [the support page](http://www.lancache.net/docs/support/) before opening a new issue on github.
 
 ## Thanks
 
