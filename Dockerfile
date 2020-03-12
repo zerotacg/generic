@@ -1,11 +1,13 @@
 FROM lancachenet/ubuntu-nginx:latest
 MAINTAINER LanCache.Net Team <team@lancache.net>
 
-ENV GENERICCACHE_VERSION=2 \
+ENV GENERICCACHE_VERSION=2 \    
     WEBUSER=www-data \
+	CACHE_MODE=generic \
     CACHE_MEM_SIZE=500m \
-    CACHE_DISK_SIZE=500000m \
+    CACHE_DISK_SIZE=1000000m \
     CACHE_MAX_AGE=3560d \
+	CACHE_SLICE_SIZE=1m \
     UPSTREAM_DNS="8.8.8.8 8.8.4.4" \
     BEAT_TIME=1h \
     LOGFILE_RETENTION=3560 \
