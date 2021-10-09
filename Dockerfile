@@ -1,4 +1,4 @@
-FROM lancachenet/monolithic:switcheroo
+FROM lancachenet/monolithic:latest
 LABEL version=3
 LABEL description="Single aggressive caching container for caching game content at LAN parties."
 LABEL maintainer="LanCache.Net Team <team@lancache.net>"
