@@ -1,7 +1,7 @@
 FROM lancachenet/monolithic:switcheroo
 LABEL version=3
-LABEL description="Single agressive caching container for caching game content at lan parties."
-LABEL maintainer=" LanCache.Net Team <team@lancache.net>"
+LABEL description="Single aggressive caching container for caching game content at LAN parties."
+LABEL maintainer="LanCache.Net Team <team@lancache.net>"
 
 ENV GENERICCACHE_VERSION=2 \    
 	CACHE_MODE=generic \
